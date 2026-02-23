@@ -1,0 +1,200 @@
+/* Team Group Photo Slide Styles */
+
+.team-group-slide {
+    display: flex !important;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    padding: 1rem 0.5rem;
+    position: absolute;
+}
+
+.team-group-photo-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    width: 100%;
+    max-width: 800px;
+}
+
+/* Team Group Photo Container */
+.team-group-photo {
+    width: 100%;
+    max-width: 700px;
+    height: 500px;
+    position: relative;
+    margin: 0 auto;
+    border-radius: 8px;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+/* Gray Placeholder Block */
+.photo-placeholder {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #2a2a2a 0%, #3a3a3a 25%, #2a2a2a 50%, #3a3a3a 75%, #2a2a2a 100%);
+    background-size: 200% 200%;
+    animation: placeholderShimmer 8s ease-in-out infinite;
+    position: relative;
+}
+
+.photo-placeholder::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+        radial-gradient(circle at 30% 40%, rgba(212, 175, 55, 0.08) 0%, transparent 60%),
+        radial-gradient(circle at 70% 60%, rgba(212, 175, 55, 0.05) 0%, transparent 50%);
+}
+
+@keyframes placeholderShimmer {
+
+    0%,
+    100% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+}
+
+/* Hover Overlay Mask */
+.photo-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to right,
+            rgba(0, 0, 0, 0.95) 0%,
+            rgba(10, 10, 10, 0.85) 50%,
+            transparent 50%,
+            transparent 100%);
+    display: flex;
+    align-items: center;
+    padding: 0 3rem;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    pointer-events: none;
+}
+
+.team-group-photo:hover .photo-overlay {
+    opacity: 1;
+}
+
+/* Overlay Content */
+.overlay-content {
+    max-width: 300px;
+    color: #fff;
+    transform: translateX(-20px);
+    transition: transform 0.5s ease;
+}
+
+.team-group-photo:hover .overlay-content {
+    transform: translateX(0);
+}
+
+.overlay-content h3 {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 2rem;
+    color: #E3C878;
+    margin: 0 0 0.5rem 0;
+    font-weight: 400;
+    line-height: 1.3;
+}
+
+.overlay-subtitle {
+    font-family: 'Cinzel', serif;
+    font-size: 0.9rem;
+    color: #D4AF37;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    margin: 0 0 1.5rem 0;
+    opacity: 0.8;
+}
+
+.overlay-description {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.overlay-description p {
+    font-family: 'Noto Sans TC', sans-serif;
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #B0B0B0;
+    margin: 0;
+}
+
+/* Photo Hint */
+.photo-hint {
+    font-family: 'Noto Sans TC', sans-serif;
+    font-size: 1rem;
+    color: #E3C878;
+    text-align: center;
+    margin: 1rem 0 0 0;
+    animation: hintPulse 2s ease-in-out infinite;
+}
+
+@keyframes hintPulse {
+
+    0%,
+    100% {
+        opacity: 0.6;
+    }
+
+    50% {
+        opacity: 1;
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 968px) {
+    .team-group-photo {
+        height: 400px;
+    }
+
+    .photo-overlay {
+        background: linear-gradient(to bottom,
+                rgba(0, 0, 0, 0.95) 0%,
+                rgba(10, 10, 10, 0.85) 50%,
+                transparent 50%,
+                transparent 100%);
+        padding: 2rem;
+    }
+
+    .overlay-content {
+        max-width: 100%;
+    }
+
+    .overlay-content h3 {
+        font-size: 1.8rem;
+    }
+}
+
+@media (max-width: 640px) {
+    .team-group-photo {
+        height: 350px;
+    }
+
+    .overlay-content h3 {
+        font-size: 1.5rem;
+    }
+
+    .overlay-subtitle {
+        font-size: 0.8rem;
+    }
+
+    .overlay-description p {
+        font-size: 0.9rem;
+    }
+
+    .photo-hint {
+        font-size: 0.9rem;
+    }
+}

@@ -1,0 +1,90 @@
+/* ================================
+   現代流體響應式設計示範
+   比傳統媒體查詢更優雅的做法
+   ================================ */
+
+/* 1. 使用 CSS 變量定義流體尺寸 */
+:root {
+    /* 流體字體：根據螢幕寬度自動調整 */
+    --font-size-base: clamp(14px, 1.5vw, 18px);
+    --font-size-h1: clamp(2.5rem, 8vw, 6rem);
+    --font-size-h2: clamp(2rem, 5vw, 4rem);
+    --font-size-h3: clamp(1.5rem, 3vw, 2.5rem);
+
+    /* 流體間距：自動適應 */
+    --spacing-xs: clamp(0.5rem, 2vw, 1rem);
+    --spacing-sm: clamp(1rem, 3vw, 2rem);
+    --spacing-md: clamp(2rem, 5vw, 4rem);
+    --spacing-lg: clamp(3rem, 8vw, 6rem);
+
+    /* 流體容器寬度 */
+    --container-padding: clamp(16px, 5vw, 48px);
+    --container-max-width: min(100% - var(--container-padding) * 2, 1400px);
+}
+
+/* 2. 流體字體應用 */
+body {
+    font-size: var(--font-size-base);
+}
+
+h1 {
+    font-size: var(--font-size-h1);
+}
+
+h2 {
+    font-size: var(--font-size-h2);
+}
+
+/* 3. 流體布局：自動切換列數 */
+.team-grid,
+.merch-grid {
+    display: grid;
+    /* 自動適應列數：最小 280px，最多填滿 */
+    grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
+    gap: var(--spacing-md);
+}
+
+/* 4. 流體間距 */
+.container {
+    padding: var(--spacing-lg) var(--container-padding);
+    max-width: var(--container-max-width);
+    margin: 0 auto;
+}
+
+/* 5. 流體圖片/卡片 */
+.card,
+.product {
+    width: 100%;
+    max-width: 400px;
+}
+
+/* 現在只需要很少的媒體查詢！ */
+
+/* 僅處理布局方向變化 */
+@media (max-width: 768px) {
+
+    /* 改變某些特定布局 */
+    .nav-links {
+        display: none;
+        /* 顯示漢堡選單 */
+    }
+
+    .hero-info {
+        flex-direction: column;
+    }
+}
+
+/* 比較：傳統方式 vs 流體設計 */
+
+/* ❌ 傳統：需要很多斷點 */
+/*
+@media (max-width: 480px) { font-size: 14px; }
+@media (min-width: 481px) { font-size: 15px; }
+@media (min-width: 769px) { font-size: 16px; }
+@media (min-width: 1025px) { font-size: 17px; }
+*/
+
+/* ✅ 流體：一行搞定 */
+/*
+font-size: clamp(14px, 1.5vw, 18px);
+*/

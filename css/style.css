@@ -1,0 +1,1948 @@
+/* 
+   THEME: Ethereal Gold & Midnight Velvet
+   STYLE: Premium Theatrical, High Contrast, Fluid Motion
+*/
+
+:root {
+    /* --- Architecture & Colors --- */
+    --bg-deep: #050505;
+    --bg-navy: #0a0c14;
+    --bg-velvet: #1a0f14;
+    /* Subtle warm undertone */
+
+    /* Gold Gradients */
+    --gold-100: #F9F1D0;
+    --gold-300: #E3C878;
+    --gold-500: #D4AF37;
+    /* Core Gold */
+    --gold-700: #8C701C;
+    --gold-900: #4A3A0B;
+
+    --gold-gradient: linear-gradient(135deg, var(--gold-300) 0%, var(--gold-500) 50%, var(--gold-700) 100%);
+    --gold-shine: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+
+    /* Text */
+    --text-primary: #F0F0F0;
+    --text-secondary: #B0B0B0;
+    --text-muted: #666666;
+
+    /* Fonts - 使用視窗相對單位 */
+    --font-serif-cn: 'Noto Serif TC', serif;
+    --font-serif-en: 'Playfair Display', serif;
+    --font-display: 'Cinzel', serif;
+    --font-body: 'Cormorant Garamond', serif;
+    /* Elegant, tall serif */
+    --font-ui: 'Noto Sans TC', sans-serif;
+
+    /* 流體字體大小 - 使用 clamp(最小值, 理想值, 最大值) */
+    --font-size-base: clamp(14px, 1vw, 20px);
+    --font-size-h1: clamp(2.5rem, 6vw, 6rem);
+    --font-size-h2: clamp(2rem, 4vw, 4.5rem);
+    --font-size-h3: clamp(1.5rem, 2.5vw, 3rem);
+    --font-size-h4: clamp(1.2rem, 2vw, 2rem);
+    --font-size-small: clamp(0.8rem, 1vw, 1rem);
+
+    /* 流體間距 - 使用視窗單位 */
+    --spacing-xs: clamp(0.5rem, 1vw, 1rem);
+    --spacing-sm: clamp(1rem, 2vw, 2rem);
+    --spacing-md: clamp(2rem, 4vw, 4rem);
+    --spacing-lg: clamp(3rem, 6vw, 8rem);
+    --spacing-xl: clamp(4rem, 8vw, 12rem);
+
+    /* 流體容器尺寸 */
+    --container-padding-x: clamp(16px, 3vw, 80px);
+    --container-padding-y: clamp(60px, 8vh, 120px);
+    --container-max-width: min(95vw, 2000px);
+
+    /* 流體元素尺寸 */
+    --card-width: clamp(250px, 20vw, 400px);
+    --card-gap: clamp(1rem, 2vw, 3rem);
+
+    /* Effects */
+    --glass-surface: rgba(20, 20, 25, 0.4);
+    --glass-border: rgba(212, 175, 55, 0.15);
+    --glass-blur: 16px;
+    --ease-out-expo: cubic-bezier(0.19, 1, 0.22, 1);
+    --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* --- Global Reset & Base --- */
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+
+html {
+    scroll-behavior: smooth;
+    font-size: var(--font-size-base);
+}
+
+body {
+    padding: 0;
+    margin: 0;
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--bg-deep);
+    color: var(--text-primary);
+    font-family: var(--font-body);
+    font-size: var(--font-size-base);
+    line-height: 1.7;
+    overflow-x: hidden;
+    /* Subtle Grain Overlay */
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.04'/%3E%3C/svg%3E");
+}
+
+#canvas-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    pointer-events: none;
+}
+
+/* Custom Selection */
+::selection {
+    background: var(--gold-700);
+    color: #fff;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-deep);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--gold-700);
+    border-radius: 10px;
+}
+
+/* --- Typography --- */
+h1,
+h2,
+h3,
+h4 {
+    font-weight: 400;
+    letter-spacing: 0.02em;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.3s ease;
+}
+
+/* --- Layout Utilities --- */
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    min-height: 100vh;
+    width: 100%;
+    max-width: var(--container-max-width);
+    padding: 5% 5%;
+    position: relative;
+    z-index: 2;
+    gap: 5%;
+}
+
+/* --- Loader Override --- */
+/* Keeping existing structure but enhancing style */
+#intro-overlay {
+    background: #000;
+}
+
+.char {
+    font-family: var(--font-serif-cn);
+    font-weight: 200;
+    color: var(--gold-300);
+    text-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
+}
+
+/* --- Navigation --- */
+nav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    padding: 1.5rem 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 1000;
+    transition: all 0.5s var(--ease-out-expo);
+    mix-blend-mode: difference;
+    /* Cool effect over light/dark areas */
+}
+
+nav.scrolled {
+    padding: 1rem 3rem;
+    /* background: rgba(255, 220, 107, 0.089); */
+    border-radius: 10px;
+}
+
+.logo {
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    letter-spacing: 0.2em;
+    font-weight: 700;
+    color: #fff;
+    /* Blend mode handles color */
+    background: linear-gradient(to right, #fff, #e9c345da);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.nav-links {
+    display: flex;
+    gap: 3rem;
+    list-style: none;
+}
+
+.nav-links a {
+    font-family: var(--font-ui);
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: transparent;
+    background: #C79657;
+    background: linear-gradient(90deg, rgba(255, 203, 135, 1) 40%, rgba(255, 243, 133, 1) 100%);
+
+    -webkit-background-clip: text;
+
+    /* Blend mode handles color */
+    position: relative;
+}
+
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 50%;
+    width: 0;
+    height: 1px;
+    background: var(--gold-500);
+    transition: width 0.3s ease, left 0.3s ease;
+}
+
+.nav-links a:hover::after {
+    width: 100%;
+    left: 0;
+}
+
+.nav-links a.active::after {
+    width: 100%;
+    left: 0;
+}
+
+.btn-ticket-nav {
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    padding: 8px 24px;
+    border-radius: 100px;
+    transition: 0.3s;
+}
+
+.btn-ticket-nav:hover {
+    background: var(--gold-500);
+    border-color: var(--gold-500);
+    color: #000 !important;
+}
+
+/* --- Hero Section --- */
+header#hero {
+    height: 100vh;
+    width: 100%;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    perspective: 100px;
+}
+
+.hero-image-container {
+    position: absolute;
+    width: 100vw;
+    /* Slight scale for parallax movement opportunity */
+    z-index: 0;
+}
+
+.hero-img {
+    width: 100%;
+    object-fit: cover;
+    filter: brightness(0.7) contrast(1.1) saturate(1.1);
+    /* Soften the image edges - Center Focus Mask */
+    mask-image: linear-gradient(to right, transparent 0%, black 25%, black 50%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 25%, black 75%, transparent 100%);
+    animation: slowZoom 10s infinite alternate ease-in-out;
+}
+
+@keyframes slowZoom {
+    0% {
+        transform: scale(1);
+    }
+
+    100% {
+        transform: scale(1.05);
+    }
+}
+
+.hero-content {
+    position: relative;
+    z-index: 10;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* padding-top: 10vh; */
+}
+
+.main-title {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.title-line {
+    font-family: var(--font-serif-cn);
+    font-size: clamp(3rem, 8vw, 6rem);
+    font-weight: 200;
+    line-height: 1.1;
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(212, 175, 55, 0.4);
+    /* Outline interaction */
+    position: relative;
+}
+
+/* Fill effect */
+.title-line::before {
+    content: '如果青春';
+    position: absolute;
+    top: 0;
+    left: 0;
+    color: var(--gold-300);
+    width: 0%;
+    overflow: hidden;
+    white-space: nowrap;
+    border-right: 2px solid var(--gold-500);
+    animation: fillText 3s 2s forwards var(--ease-out-expo);
+}
+
+.title-line:nth-child(2)::before {
+    content: '會開花';
+    animation-delay: 3.5s;
+    /* Stagger */
+}
+
+@keyframes fillText {
+    to {
+        width: 100%;
+        opacity: 1;
+    }
+}
+
+.subtitle {
+    font-family: var(--font-body);
+    font-style: italic;
+    font-size: 1.5rem;
+    color: var(--text-secondary);
+    letter-spacing: 0.05em;
+    margin-bottom: 3rem;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+.hero-info {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 2rem;
+    align-items: center;
+    font-family: var(--font-display);
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+    padding: 1.5rem 0;
+    background: rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(5px);
+}
+
+.info-item {
+    padding: 0 2rem;
+    color: var(--gold-100);
+    letter-spacing: 0.1em;
+}
+
+/* Scroll Hint */
+.scroll-wrapper {
+    position: absolute;
+    bottom: 3vh;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    opacity: 0.7;
+    mix-blend-mode: overlay;
+}
+
+.scroll-text {
+    font-family: var(--font-ui);
+    font-size: 0.6rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+}
+
+.scroll-instruction {
+    font-family: var(--font-ui);
+    font-size: 0.9rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold-300);
+    margin-top: 2rem;
+    opacity: 0.8;
+    animation: fadeInOut 3s infinite;
+}
+
+@keyframes fadeInOut {
+
+    0%,
+    100% {
+        opacity: 0.4;
+    }
+
+    50% {
+        opacity: 1;
+    }
+}
+
+.scroll-line {
+    width: 1px;
+    height: 60px;
+    background: linear-gradient(to bottom, #fff, transparent);
+    animation: flowLine 2s infinite;
+}
+
+.overlay-gradient {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom,
+            rgba(0, 0, 0, 0.3) 0%,
+            rgba(0, 0, 0, 0.1) 50%,
+            rgba(0, 0, 0, 0.5) 100%);
+    pointer-events: none;
+    z-index: 1;
+}
+
+@keyframes flowLine {
+    0% {
+        transform: scaleY(0);
+        transform-origin: top;
+    }
+
+    50% {
+        transform: scaleY(1);
+        transform-origin: top;
+    }
+
+    51% {
+        transform: scaleY(1);
+        transform-origin: bottom;
+    }
+
+    100% {
+        transform: scaleY(0);
+        transform-origin: bottom;
+    }
+}
+
+/* --- Shared Section Styling --- */
+.section-title {
+    margin-bottom: 1rem;
+    text-align: center;
+    position: relative;
+    width: 100%;
+}
+
+.section-title h2 {
+    font-family: var(--font-serif-cn);
+    font-size: var(--font-size-h2);
+    color: var(--gold-300);
+    margin-bottom: var(--spacing-xs);
+}
+
+.section-subtitle {
+    font-family: var(--font-display);
+    font-size: var(--font-size-small);
+    letter-spacing: 0.3em;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    display: inline-block;
+    position: relative;
+}
+
+.section-subtitle::before,
+.section-subtitle::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 40px;
+    height: 1px;
+    background: var(--gold-700);
+    opacity: 0.5;
+}
+
+.section-subtitle::before {
+    right: 100%;
+    margin-right: 15px;
+}
+
+.section-subtitle::after {
+    left: 100%;
+    margin-left: 15px;
+}
+
+.divider {
+    width: 60px;
+    height: 2px;
+    background: linear-gradient(to right, transparent, var(--gold-500), transparent);
+    margin: 1.5rem auto 0;
+    opacity: 0.6;
+}
+
+/* Dark Pattern Background - Film Grain & Gold Accents (Lo-fi Luxury) */
+
+
+/* 2. 金色裝飾邊框與幾何圖形 */
+.dark-pattern-bg::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 500 500' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='filmGrain'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.2' numOctaves='4' seed='2' /%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23filmGrain)' opacity='0.15'/%3E%3C/svg%3E");
+    background-size: 200px 200px;
+    opacity: 0;
+    animation: grainShift 0.2s steps(4) infinite;
+    pointer-events: none;
+    mix-blend-mode: screen;
+}
+
+
+/* === 獨特背景動畫效果 === */
+
+/* 1. 故事章節區 - 漂浮星光粒子 */
+#about.container::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+        radial-gradient(2px 2px at 20% 30%, rgba(212, 175, 55, 0.4), transparent),
+        radial-gradient(2px 2px at 60% 70%, rgba(212, 175, 55, 0.3), transparent),
+        radial-gradient(1px 1px at 50% 50%, rgba(255, 255, 255, 0.4), transparent),
+        radial-gradient(2px 2px at 80% 10%, rgba(212, 175, 55, 0.4), transparent),
+        radial-gradient(1px 1px at 90% 60%, rgba(255, 255, 255, 0.3), transparent),
+        radial-gradient(2px 2px at 15% 80%, rgba(212, 175, 55, 0.35), transparent),
+        radial-gradient(1px 1px at 35% 15%, rgba(255, 255, 255, 0.4), transparent);
+    background-size: 200% 200%;
+    background-position: 0% 0%;
+    animation: floatingStars 20s ease-in-out infinite;
+    pointer-events: none;
+    opacity: 0.6;
+}
+
+@keyframes floatingStars {
+
+    0%,
+    100% {
+        background-position: 0% 0%;
+        opacity: 0.6;
+    }
+
+    50% {
+        background-position: 100% 100%;
+        opacity: 0.8;
+    }
+}
+
+/* 2. 主創團隊區 - 旋轉金色光環 */
+#team.container::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 800px;
+    height: 800px;
+    transform: translate(-50%, -50%);
+    background:
+        radial-gradient(circle at center, transparent 30%, rgba(212, 175, 55, 0.03) 35%, transparent 40%),
+        radial-gradient(circle at center, transparent 50%, rgba(212, 175, 55, 0.05) 55%, transparent 60%);
+    animation: rotateRings 30s linear infinite;
+    pointer-events: none;
+    opacity: 0.7;
+}
+
+@keyframes rotateRings {
+    0% {
+        transform: translate(-50%, -50%) rotate(0deg);
+    }
+
+    100% {
+        transform: translate(-50%, -50%) rotate(360deg);
+    }
+}
+
+#team.container::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 600px;
+    height: 600px;
+    transform: translate(-50%, -50%);
+    background: radial-gradient(circle at center, transparent 40%, rgba(212, 175, 55, 0.04) 45%, transparent 50%);
+    animation: rotateRings 25s linear infinite reverse;
+    pointer-events: none;
+    opacity: 0.5;
+}
+
+/* 3. 卡司區 - 流動光波 */
+#cast.container::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+        linear-gradient(90deg,
+            transparent 0%,
+            rgba(212, 175, 55, 0.03) 25%,
+            rgba(212, 175, 55, 0.06) 50%,
+            rgba(212, 175, 55, 0.03) 75%,
+            transparent 100%);
+    background-size: 200% 100%;
+    animation: flowingWave 15s linear infinite;
+    pointer-events: none;
+    opacity: 0.7;
+}
+
+@keyframes flowingWave {
+    0% {
+        background-position: -200% 0;
+    }
+
+    100% {
+        background-position: 200% 0;
+    }
+}
+
+/* 4. 遊戲區 - 脈動光圈 */
+#game.container::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 400px;
+    height: 400px;
+    transform: translate(-50%, -50%);
+    background: radial-gradient(circle at center,
+            rgba(212, 175, 55, 0.08) 0%,
+            rgba(212, 175, 55, 0.04) 30%,
+            transparent 60%);
+    animation: pulseRing 4s ease-in-out infinite;
+    pointer-events: none;
+}
+
+@keyframes pulseRing {
+
+    0%,
+    100% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 0.4;
+    }
+
+    50% {
+        transform: translate(-50%, -50%) scale(1.4);
+        opacity: 0.8;
+    }
+}
+
+#game.container::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 600px;
+    height: 600px;
+    transform: translate(-50%, -50%);
+    background: radial-gradient(circle at center,
+            transparent 0%,
+            rgba(212, 175, 55, 0.03) 40%,
+            transparent 70%);
+    animation: pulseRing 6s ease-in-out infinite reverse;
+    pointer-events: none;
+    opacity: 0.5;
+}
+
+/* 5. 周邊商品區 - 閃爍金星 */
+#merch.container::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+        radial-gradient(circle at 15% 25%, rgba(212, 175, 55, 0.15) 0%, transparent 2%),
+        radial-gradient(circle at 85% 15%, rgba(212, 175, 55, 0.12) 0%, transparent 1.5%),
+        radial-gradient(circle at 45% 65%, rgba(212, 175, 55, 0.18) 0%, transparent 2.5%),
+        radial-gradient(circle at 75% 80%, rgba(212, 175, 55, 0.14) 0%, transparent 2%),
+        radial-gradient(circle at 25% 55%, rgba(212, 175, 55, 0.16) 0%, transparent 2%),
+        radial-gradient(circle at 55% 30%, rgba(212, 175, 55, 0.13) 0%, transparent 1.5%),
+        radial-gradient(circle at 90% 50%, rgba(212, 175, 55, 0.17) 0%, transparent 2%),
+        radial-gradient(circle at 10% 75%, rgba(212, 175, 55, 0.15) 0%, transparent 2%);
+    background-size: 100% 100%;
+    animation: twinkleStars 3s ease-in-out infinite;
+    pointer-events: none;
+    opacity: 0;
+}
+
+@keyframes twinkleStars {
+
+    0%,
+    100% {
+        opacity: 0;
+    }
+
+    25% {
+        opacity: 0.6;
+    }
+
+    50% {
+        opacity: 0;
+    }
+
+    75% {
+        opacity: 0.4;
+    }
+}
+
+#merch.container::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+        radial-gradient(circle at 30% 40%, rgba(212, 175, 55, 0.12) 0%, transparent 2%),
+        radial-gradient(circle at 70% 25%, rgba(212, 175, 55, 0.15) 0%, transparent 1.5%),
+        radial-gradient(circle at 50% 85%, rgba(212, 175, 55, 0.14) 0%, transparent 2%),
+        radial-gradient(circle at 20% 90%, rgba(212, 175, 55, 0.16) 0%, transparent 2.5%),
+        radial-gradient(circle at 95% 35%, rgba(212, 175, 55, 0.13) 0%, transparent 1.5%);
+    animation: twinkleStars 3s ease-in-out infinite 1.5s;
+    pointer-events: none;
+    opacity: 0;
+}
+
+
+/* --- Act / Stage Section --- */
+/* Enhanced Stage Frame */
+.stage-container {
+    width: 100%;
+    height: 60vh;
+    max-height: 600px;
+    position: relative;
+    border: 1px solid var(--gold-500);
+    box-shadow: 0 0 50px rgba(0, 0, 0, 0.8);
+    background: #000;
+    flex-shrink: 0;
+}
+
+.stage-frame {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Curtains */
+.curtain-left,
+.curtain-right {
+    position: absolute;
+    top: 0;
+    width: 15%;
+    height: 100%;
+    background: linear-gradient(90deg, #1a0505 0%, #300a0a 50%, #1a0505 100%);
+    /* Velvet Red/Black */
+    box-shadow: 5px 0 15px rgba(0, 0, 0, 0.8);
+    z-index: 20;
+    transition: width 1s ease;
+}
+
+.curtain-left {
+    left: 0;
+}
+
+.curtain-right {
+    right: 0;
+    background: linear-gradient(-90deg, #1a0505 0%, #300a0a 50%, #1a0505 100%);
+}
+
+/* Stage Content Area */
+.stage-content {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 3rem;
+}
+
+.stage-floor {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 40px;
+    background: linear-gradient(to bottom, transparent 0%, rgba(212, 175, 55, 0.1) 100%);
+    border-top: 1px solid rgba(212, 175, 55, 0.2);
+}
+
+/* Act Visuals */
+.act-slide {
+    background: radial-gradient(circle at center, #1f1f1f 0%, #000000 100%);
+    position: absolute;
+    inset: 0;
+    padding: 3rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.6s ease, transform 0.6s ease;
+    transform: scale(0.95);
+}
+
+.act-slide.active {
+    opacity: 1;
+    pointer-events: all;
+    transform: scale(1);
+}
+
+.act-slide p {
+    max-width: 600px;
+    line-height: 1.8;
+    color: var(--text-secondary);
+    margin-bottom: 1rem;
+}
+
+.act-hint {
+    font-size: 0.8rem !important;
+    color: var(--gold-700) !important;
+    margin-top: 2rem !important;
+    font-style: italic;
+    opacity: 0.6;
+}
+
+.act-label {
+    color: var(--gold-500);
+    font-size: 0.8rem;
+    letter-spacing: 0.2em;
+    border-bottom: none;
+    background: rgba(212, 175, 55, 0.1);
+    padding: 5px 15px;
+    border-radius: 50px;
+}
+
+.act-slide h3 {
+    font-family: var(--font-serif-en);
+    font-size: 4rem;
+    background: linear-gradient(to bottom, #fff, #999);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 2rem;
+}
+
+/* Schedule */
+.schedule-container {
+    width: 100%;
+    position: relative;
+    margin-top: 4rem;
+    margin-bottom: 4rem;
+}
+
+.schedule-container h3 {
+    font-family: var(--font-serif-cn);
+    font-size: 2rem;
+    color: var(--gold-300);
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.schedule-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2rem;
+    width: 100%;
+}
+
+.schedule-item {
+    background: var(--bg-deep);
+    padding: 2rem;
+    text-align: center;
+    transition: 0.4s;
+    border: 1px solid rgba(212, 175, 55, 0.2);
+    min-width: 200px;
+    flex: 1 1 200px;
+    max-width: 250px;
+}
+
+.schedule-item:hover {
+    background: radial-gradient(circle at center, #151515, #000);
+    border-color: var(--gold-700);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.schedule-item .time {
+    font-family: 'Cinzel', serif;
+    font-size: 2rem;
+    color: var(--gold-300);
+    display: block;
+    margin: 10px 0;
+}
+
+/* --- Team & Cast (Cards) --- */
+.team-grid {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.card {
+    width: 300px;
+    border-radius: 4px;
+    /* Sharp corners fits theatre better */
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    position: relative;
+    transition: all 0.5s var(--ease-out-expo);
+    overflow: hidden;
+}
+
+.card:hover {
+    transform: translateY(-10px);
+    border-color: var(--gold-500);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
+}
+
+.card-inner {
+    padding: 3rem 2rem;
+    position: relative;
+    z-index: 2;
+}
+
+.role {
+    font-family: var(--font-display);
+    font-size: 0.7rem;
+    color: var(--gold-500);
+    letter-spacing: 0.15em;
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+}
+
+.name {
+    font-family: var(--font-serif-cn);
+    font-size: 1.8rem;
+    color: #fff;
+    margin-bottom: 1rem;
+}
+
+.desc {
+    font-size: 0.95rem;
+    color: #aaa;
+    font-style: italic;
+    line-height: 1.6;
+}
+
+/* Cast Specific - Horizontal Scroll or Carousel */
+.cast-carousel {
+    display: flex;
+    gap: 20px;
+    padding-bottom: 30px;
+    cursor: grab;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    justify-content: center;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.cast-carousel::-webkit-scrollbar {
+    display: none;
+}
+
+.cast-card {
+    min-width: 260px;
+    height: 400px;
+    position: relative;
+    border-radius: 200px 200px 0 0;
+    /* Arch Window Shape */
+    overflow: hidden;
+    background: #111;
+    border: 1px solid #333;
+    transition: 0.5s;
+    filter: grayscale(100%);
+}
+
+.cast-card.default-active,
+.cast-card:hover {
+    filter: grayscale(0%);
+    border-color: var(--gold-500);
+    transform: scale(1.05);
+    z-index: 10;
+}
+
+.cast-img-container {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.cast-text-top {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 80px 20px 30px;
+    background: linear-gradient(to top, #000 0%, transparent 100%);
+    text-align: center;
+    z-index: 5;
+}
+
+.cast-text-top h3 {
+    font-family: var(--font-serif-cn);
+    font-size: 1.5rem;
+    color: var(--gold-100);
+}
+
+.cast-role {
+    color: var(--gold-500);
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+}
+
+/* Placeholders */
+.placeholder-visual {
+    background: #1a1a1a;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.avatar-placeholder {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border: 1px solid var(--gold-700);
+    margin: 0 auto 20px;
+    position: relative;
+}
+
+.avatar-placeholder::after {
+    content: '';
+    position: absolute;
+    inset: 5px;
+    border-radius: 50%;
+    border: 1px dashed rgba(255, 255, 255, 0.2);
+    animation: rotate 20s linear infinite;
+}
+
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.ph-circle {
+    width: 60%;
+    height: 60%;
+    border-radius: 50%;
+    border: 2px solid var(--gold-700);
+    position: relative;
+    animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+
+    0%,
+    100% {
+        opacity: 0.4;
+        transform: scale(1);
+    }
+
+    50% {
+        opacity: 0.8;
+        transform: scale(1.05);
+    }
+}
+
+.portrait-placeholder {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #0a0a0a 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+.portrait-placeholder::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80px;
+    height: 80px;
+    border: 2px solid rgba(212, 175, 55, 0.3);
+    border-radius: 50%;
+}
+
+.ph-lines {
+    width: 100%;
+    height: 100%;
+    background:
+        linear-gradient(0deg, transparent 40%, rgba(212, 175, 55, 0.05) 50%, transparent 60%),
+        linear-gradient(90deg, transparent 40%, rgba(212, 175, 55, 0.05) 50%, transparent 60%);
+    background-size: 20px 20px;
+    position: relative;
+    animation: shimmer 3s infinite;
+}
+
+@keyframes shimmer {
+    0% {
+        opacity: 0.3;
+    }
+
+    50% {
+        opacity: 0.6;
+    }
+
+    100% {
+        opacity: 0.3;
+    }
+}
+
+.merch-placeholder {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #151515 0%, #1f1f1f 50%, #151515 100%);
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ph-text {
+    color: var(--gold-700);
+    font-size: 0.9rem;
+    letter-spacing: 0.1em;
+    opacity: 0.5;
+    font-family: var(--font-ui);
+    text-align: center;
+}
+
+/* --- Game Section --- */
+.game-section {
+    background: radial-gradient(circle at center, #1a1a2e 0%, #050510 100%);
+}
+
+.game-container {
+    width: 100%;
+    text-align: center;
+    background: rgba(255, 255, 255, 0.03);
+    padding: 3rem;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+}
+
+.game-intro {
+    color: var(--text-secondary);
+    line-height: 1.8;
+    margin-bottom: 2rem;
+}
+
+#game-area {
+    position: relative;
+    width: 100%;
+    max-width: 800px;
+    height: 500px;
+    margin: 2rem auto;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 8px;
+    border: 1px solid rgba(212, 175, 55, 0.2);
+    overflow: hidden;
+}
+
+.game-ui {
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 200;
+}
+
+#score-board {
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    letter-spacing: 0.2em;
+    color: var(--gold-300);
+    background: rgba(0, 0, 0, 0.7);
+    padding: 10px 30px;
+    border-radius: 50px;
+    border: 1px solid var(--gold-700);
+    backdrop-filter: blur(10px);
+}
+
+#score {
+    color: var(--gold-500);
+    font-weight: 700;
+    font-size: 1.4rem;
+}
+
+.petal {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: var(--gold-500);
+    border-radius: 20px 0px 20px 0px;
+    box-shadow: 0 0 10px var(--gold-300), 0 0 20px rgba(212, 175, 55, 0.5);
+    cursor: pointer;
+    z-index: 100;
+    transition: transform 0.2s ease;
+}
+
+.petal:hover {
+    transform: scale(1.2) rotate(15deg);
+    box-shadow: 0 0 20px var(--gold-300), 0 0 30px rgba(212, 175, 55, 0.7);
+}
+
+#secret-message {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.95);
+    backdrop-filter: blur(20px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 300;
+    transition: opacity 0.4s ease;
+}
+
+#secret-message.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.msg-content {
+    background: linear-gradient(135deg, rgba(212, 175, 55, 0.1), rgba(212, 175, 55, 0.05));
+    border: 2px solid var(--gold-500);
+    border-radius: 12px;
+    padding: 3rem;
+    text-align: center;
+    max-width: 500px;
+    box-shadow: 0 0 50px rgba(212, 175, 55, 0.3);
+}
+
+.msg-content h3 {
+    font-family: var(--font-serif-cn);
+    font-size: 2rem;
+    color: var(--gold-300);
+    margin-bottom: 1.5rem;
+}
+
+.msg-content p {
+    font-family: var(--font-body);
+    font-style: italic;
+    font-size: 1.2rem;
+    color: var(--text-secondary);
+    line-height: 1.8;
+}
+
+/* --- Merch --- */
+.merch-grid {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 3rem;
+}
+
+.product {
+    background: #0b0b0b;
+    min-width: 80%;
+    border: 1px solid #222;
+    transition: 0.3s;
+}
+
+.product:hover {
+    border-color: var(--gold-500);
+}
+
+.prod-img-box {
+    height: 300px;
+    background: #151515;
+    position: relative;
+    overflow: hidden;
+}
+
+.prod-tag {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: var(--gold-500);
+    color: #000;
+    font-weight: bold;
+    font-size: 0.7rem;
+    padding: 3px 8px;
+}
+
+.prod-info {
+    padding: 1.5rem;
+    text-align: center;
+}
+
+.btn-sm {
+    background: transparent;
+    border: 1px solid #444;
+    color: #ccc;
+    padding: 8px 16px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: 0.3s;
+    margin-top: 10px;
+}
+
+.btn-sm:hover {
+    border-color: var(--gold-500);
+    color: var(--gold-500);
+}
+
+/* --- Footer --- */
+footer {
+    background: #020202;
+    padding: 80px 10%;
+    border-top: 1px solid #111;
+}
+
+.footer-top {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 50px;
+    margin-bottom: 50px;
+}
+
+.ticket-info {
+    flex: 2;
+    min-width: 300px;
+}
+
+.ticket-details {
+    margin: 30px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.price-row {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px dashed #333;
+    padding-bottom: 5px;
+}
+
+.contact-info {
+    flex: 1;
+    min-width: 250px;
+}
+
+.contact-info h3 {
+    font-family: var(--font-serif-cn);
+    font-size: 1.5rem;
+    color: var(--gold-300);
+    margin-bottom: 1.5rem;
+}
+
+.contact-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 1rem;
+    color: var(--text-secondary);
+    font-size: 1rem;
+}
+
+.contact-item .icon {
+    font-size: 1.2rem;
+    color: var(--gold-500);
+}
+
+.socials {
+    display: flex;
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.social-link {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    transition: 0.3s;
+}
+
+.social-link:hover {
+    color: var(--gold-300);
+    transform: translateY(-2px);
+}
+
+.footer-bottom {
+    border-top: 1px solid #111;
+    padding-top: 30px;
+    text-align: center;
+}
+
+.copyright {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    letter-spacing: 0.05em;
+}
+
+.system-note {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    margin: 1.5rem 0;
+}
+
+.prod-price {
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    color: var(--gold-300);
+    margin: 0.5rem 0;
+}
+
+.prod-info h4 {
+    font-family: var(--font-serif-cn);
+    font-size: 1.2rem;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+}
+
+.schedule-container {
+    margin-top: 4rem;
+}
+
+.schedule-container h3 {
+    font-family: var(--font-serif-cn);
+    font-size: 2rem;
+    color: var(--gold-300);
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.schedule-item .date {
+    font-family: var(--font-ui);
+    font-size: 1rem;
+    color: var(--text-primary);
+    display: block;
+}
+
+.schedule-item .note {
+    font-size: 0.8rem;
+    color: var(--gold-700);
+    display: block;
+    margin-top: 5px;
+}
+
+.ticket-info h2 {
+    font-family: var(--font-serif-cn);
+    font-size: 2.5rem;
+    color: var(--gold-300);
+    margin-bottom: 1.5rem;
+}
+
+.price {
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    color: var(--gold-500);
+}
+
+.zone {
+    font-size: 1rem;
+    color: var(--text-primary);
+}
+
+.big-btn {
+    margin-top: 2rem;
+    font-size: 1.1rem;
+}
+
+.shine-effect {
+    position: relative;
+    overflow: hidden;
+}
+
+.shine-effect::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: left 0.6s ease;
+}
+
+.shine-effect:hover::before {
+    left: 100%;
+}
+
+.hamburger {
+    display: none;
+    cursor: pointer;
+}
+
+.btn-main {
+    background: var(--gold-500);
+    color: #000;
+    padding: 15px 40px;
+    display: inline-block;
+    font-family: var(--font-display);
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+    transition: 0.3s;
+}
+
+.btn-main:hover {
+    background: var(--gold-300);
+    transform: translateY(-2px);
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
+}
+
+/* ========================================
+   RESPONSIVE DESIGN (RWD)
+   ======================================== */
+
+/* === 手機 (直向) 320px - 480px === */
+@media (max-width: 480px) {
+
+    /* Typography */
+    html {
+        font-size: 14px;
+    }
+
+    body {
+        font-size: 1rem;
+    }
+
+    .title-line {
+        font-size: 2.5rem !important;
+    }
+
+    .subtitle {
+        font-size: 1rem;
+    }
+
+    .section-title h2 {
+        font-size: 2rem;
+    }
+
+    /* Layout */
+    .container {
+        padding: 5%;
+        height: auto;
+        min-height: auto;
+    }
+
+    /* Navigation */
+    nav {
+        padding: 1rem 1.5rem;
+    }
+
+    .logo {
+        font-size: 0.9rem;
+    }
+
+    .nav-links {
+        display: none;
+    }
+
+    .hamburger {
+        display: block;
+        width: 25px;
+        height: 18px;
+        position: relative;
+    }
+
+    .hamburger .line {
+        background: var(--gold-500);
+        height: 2px;
+        width: 100%;
+        margin-bottom: 4px;
+    }
+
+    /* Hero */
+    .hero-info {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+        padding: 1rem 0;
+    }
+
+    .info-item {
+        padding: 0 1rem;
+    }
+
+    .scroll-wrapper {
+        bottom: 2vh;
+    }
+
+    /* Stage */
+    .stage-container {
+        height: 50vh;
+        max-height: 400px;
+    }
+
+    .act-slide h3 {
+        font-size: 2rem;
+    }
+
+    .act-slide p {
+        font-size: 0.9rem;
+    }
+
+    /* Schedule */
+    .schedule-container {
+        margin-top: 2rem;
+        margin-bottom: 2rem;
+    }
+
+    .schedule-grid {
+        gap: 1rem;
+    }
+
+    .schedule-item {
+        min-width: 100%;
+        max-width: 100%;
+    }
+
+    .schedule-item .time {
+        font-size: 1.5rem;
+    }
+
+    /* Team & Cast */
+    .team-grid {
+        gap: 1.5rem;
+    }
+
+    .card {
+        width: 100%;
+        max-width: 320px;
+    }
+
+    .cast-carousel {
+        gap: 15px;
+    }
+
+    .cast-card {
+        min-width: 200px;
+        height: 320px;
+    }
+
+    .cast-text-top h3 {
+        font-size: 1.2rem;
+    }
+
+    /* Game */
+    #game-area {
+        height: 400px;
+    }
+
+    .game-intro {
+        font-size: 0.95rem;
+    }
+
+    /* Merch */
+    .merch-grid {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .product {
+        min-width: 100%;
+        max-width: 320px;
+    }
+
+    /* Footer */
+    .footer-top {
+        flex-direction: column;
+        gap: 30px;
+    }
+
+    .ticket-info h2 {
+        font-size: 1.8rem;
+    }
+
+    .btn-main {
+        padding: 12px 30px;
+        font-size: 0.9rem;
+    }
+}
+
+/* === 平板 (直向) 481px - 768px === */
+@media (min-width: 481px) and (max-width: 768px) {
+
+    /* Typography */
+    html {
+        font-size: 15px;
+    }
+
+    .title-line {
+        font-size: 3.5rem !important;
+    }
+
+    .section-title h2 {
+        font-size: 2.5rem;
+    }
+
+    /* Layout */
+    .container {
+        padding: 5%;
+        height: auto;
+    }
+
+    /* Navigation */
+    nav {
+        padding: 1.2rem 2rem;
+    }
+
+    .nav-links {
+        display: none;
+    }
+
+    .hamburger {
+        display: block;
+        width: 30px;
+        height: 20px;
+        position: relative;
+    }
+
+    .hamburger .line {
+        background: var(--gold-500);
+        height: 2px;
+        width: 100%;
+        margin-bottom: 5px;
+    }
+
+    /* Stage */
+    .stage-container {
+        height: 55vh;
+        max-height: 500px;
+    }
+
+    .act-slide h3 {
+        font-size: 3rem;
+    }
+
+    /* Schedule */
+    .schedule-container {
+        margin-top: 3rem;
+        margin-bottom: 3rem;
+    }
+
+    .schedule-grid {
+        gap: 1.5rem;
+    }
+
+    .schedule-item {
+        flex: 1 1 calc(50% - 1.5rem);
+        max-width: calc(50% - 1.5rem);
+    }
+
+    /* Team & Cast */
+    .team-grid {
+        gap: 1.5rem;
+    }
+
+    .card {
+        width: calc(50% - 1.5rem);
+        max-width: 300px;
+    }
+
+    .cast-card {
+        min-width: 220px;
+        height: 350px;
+    }
+
+    /* Game */
+    #game-area {
+        height: 450px;
+    }
+
+    /* Merch */
+    .merch-grid {
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+
+    .product {
+        flex: 1 1 calc(50% - 1.5rem);
+        min-width: calc(50% - 1.5rem);
+        max-width: calc(50% - 1.5rem);
+    }
+}
+
+/* === 小筆電 / 平板橫向 769px - 1024px === */
+@media (min-width: 769px) and (max-width: 1024px) {
+
+    /* Layout */
+    .container {
+        padding: 5%;
+    }
+
+    /* Navigation */
+    .nav-links {
+        gap: 2rem;
+    }
+
+    .nav-links a {
+        font-size: 0.75rem;
+    }
+
+    /* Schedule */
+    .schedule-item {
+        flex: 1 1 calc(25% - 1.5rem);
+        max-width: 220px;
+    }
+
+    /* Team */
+    .card {
+        width: calc(33.333% - 1.5rem);
+        max-width: 280px;
+    }
+
+    /* Cast */
+    .cast-card {
+        min-width: 240px;
+    }
+
+    /* Merch */
+    .product {
+        flex: 1 1 calc(33.333% - 2rem);
+        min-width: calc(33.333% - 2rem);
+        max-width: 300px;
+    }
+}
+
+/* === 標準筆電 1025px - 1280px === */
+@media (min-width: 1025px) and (max-width: 1280px) {
+    .container {
+        padding: 5%;
+    }
+
+    /* Schedule */
+    .schedule-item {
+        max-width: 230px;
+    }
+
+    /* Merch */
+    .product {
+        flex: 1 1 calc(33.333% - 2rem);
+        max-width: 350px;
+    }
+}
+
+/* === 大螢幕桌機 1281px 以上 === */
+@media (min-width: 1281px) {
+    .container {
+        padding: 99px 48px;
+    }
+
+    .section-title h2 {
+        font-size: 4rem;
+    }
+}
+
+/* === 特殊調整：極小螢幕 (< 360px) === */
+@media (max-width: 359px) {
+    html {
+        font-size: 13px;
+    }
+
+    .title-line {
+        font-size: 2rem !important;
+    }
+
+    .container {
+        padding: 50px 12px;
+    }
+
+    nav {
+        padding: 0.8rem 1rem;
+    }
+
+    .logo {
+        font-size: 0.8rem;
+    }
+}
+
+/* === 橫向模式優化 === */
+@media (max-height: 600px) and (orientation: landscape) {
+    .container {
+        height: auto;
+        min-height: 100vh;
+    }
+
+    header#hero {
+        height: 100vh;
+        min-height: 500px;
+    }
+
+    .stage-container {
+        height: 80vh;
+        max-height: none;
+    }
+}
+
+/* === 高解析度螢幕優化 === */
+@media (min-width: 1920px) {
+    .container {
+        padding: 120px 60px;
+    }
+
+    .section-title h2 {
+        font-size: 4.5rem;
+    }
+
+    .title-line {
+        font-size: clamp(4rem, 10vw, 7rem);
+    }
+}

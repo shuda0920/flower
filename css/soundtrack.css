@@ -1,0 +1,405 @@
+/* Soundtrack Section Styles */
+
+.soundtrack-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5rem;
+    width: 100%;
+    flex-wrap: wrap;
+    padding: 2rem 0;
+}
+
+/* Vinyl Record */
+.vinyl-wrapper {
+    position: relative;
+    width: 400px;
+    height: 400px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.vinyl-record {
+    width: 95%;
+    height: 95%;
+    border-radius: 50%;
+    border: 1.1px solid var(--gold-700);
+    background:
+        radial-gradient(circle at 50% 50%, #1a1a1a 0%, #000 30%, #1a1a1a 50%, #000000 100%);
+    position: relative;
+    box-shadow:
+        0 0 30px rgba(0, 0, 0, 0.8),
+        inset 0 0 20px rgba(255, 225, 142, 0.24);
+    animation: vinylSpin 3s linear infinite paused;
+    transition: animation-play-state 0.3s;
+}
+
+.vinyl-record.playing {
+    animation-play-state: running;
+}
+
+@keyframes vinylSpin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Vinyl Grooves */
+.vinyl-grooves {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background-image:
+        repeating-radial-gradient(circle at center,
+            transparent 0px,
+            transparent 2px,
+            rgba(255, 238, 238, 0.144) 2px,
+            rgba(255, 245, 110, 0.158) 3px);
+    pointer-events: none;
+}
+
+/* Vinyl Label (Center) */
+.vinyl-label {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    background:
+        radial-gradient(circle at 30% 30%, #2a2a2a, #1a1a1a 50%, #0a0a0a);
+    border: 3px solid var(--gold-700);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
+}
+
+.vinyl-label::before {
+    content: '';
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: #0a0a0a;
+    border: 2px solid #333;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.label-text {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 0.9rem;
+    color: #E3C878;
+    font-weight: 600;
+    line-height: 1.3;
+    margin-bottom: 5px;
+    position: relative;
+    z-index: 1;
+}
+
+.label-subtitle {
+    font-family: 'Cinzel', serif;
+    font-size: 0.5rem;
+    color: #c4c4c4;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    position: relative;
+    z-index: 7;
+}
+
+/* Turntable Arm */
+.turntable-arm {
+    position: absolute;
+    top: 10%;
+    right: 5%;
+    width: 180px;
+    height: 8px;
+    background: linear-gradient(to right, #333 0%, #666 20%, #999 50%, #666 80%, #333 100%);
+    border-radius: 4px;
+    transform-origin: right center;
+    transform: rotate(-25deg);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+    transition: transform 0.5s ease;
+}
+
+.turntable-arm::before {
+    content: '';
+    position: absolute;
+    right: -15px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    background: radial-gradient(circle, #888, #333);
+    border-radius: 50%;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+}
+
+.turntable-arm::after {
+    content: '';
+    position: absolute;
+    left: -10px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 15px;
+    height: 15px;
+    background: #8C701C;
+    border-radius: 50%;
+    box-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+}
+
+.vinyl-record.playing~.turntable-arm {
+    transform: rotate(-35deg);
+}
+
+/* Audio Player */
+.audio-player {
+    flex: 1;
+    min-width: 300px;
+    max-width: 500px;
+    background: rgba(20, 20, 25, 0.6);
+    border: 1px solid rgba(212, 175, 55, 0.2);
+    border-radius: 8px;
+    padding: 2rem;
+    backdrop-filter: blur(10px);
+}
+
+.audio-player h3 {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 1.5rem;
+    color: #E3C878;
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+/* Track List */
+.track-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+}
+
+.track-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.track-item:hover {
+    background: rgba(212, 175, 55, 0.1);
+    border-color: #D4AF37;
+    transform: translateX(5px);
+}
+
+.track-item.active {
+    background: rgba(212, 175, 55, 0.15);
+    border-color: #D4AF37;
+}
+
+.track-number {
+    font-family: 'Cinzel', serif;
+    font-size: 0.9rem;
+    color: #8C701C;
+    min-width: 30px;
+}
+
+.track-name {
+    flex: 1;
+    font-family: 'Noto Sans TC', sans-serif;
+    font-size: 0.95rem;
+    color: #F0F0F0;
+}
+
+.track-duration {
+    font-family: 'Cinzel', serif;
+    font-size: 0.85rem;
+    color: #666666;
+}
+
+/* Player Controls */
+.player-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.control-btn {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #E3C878 0%, #D4AF37 50%, #8C701C 100%);
+    border: none;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+}
+
+.control-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 20px rgba(212, 175, 55, 0.5);
+}
+
+.control-btn:active {
+    transform: scale(0.95);
+}
+
+.play-icon,
+.pause-icon {
+    font-size: 1.5rem;
+    color: #000;
+}
+
+/* Progress Bar */
+.progress-bar {
+    width: 100%;
+    height: 6px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 3px;
+    overflow: hidden;
+    cursor: pointer;
+    position: relative;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(135deg, #E3C878 0%, #D4AF37 50%, #8C701C 100%);
+    width: 0%;
+    transition: width 0.1s linear;
+    border-radius: 3px;
+}
+
+.time-display {
+    text-align: center;
+    font-family: 'Cinzel', serif;
+    font-size: 0.9rem;
+    color: #B0B0B0;
+    letter-spacing: 0.05em;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .soundtrack-container {
+        gap: 3rem;
+        padding: 1rem 0;
+    }
+
+    .vinyl-wrapper {
+        width: 300px;
+        height: 300px;
+    }
+
+    .vinyl-record {
+        width: 280px;
+        height: 280px;
+    }
+
+    .vinyl-label {
+        width: 110px;
+        height: 110px;
+        padding: 15px;
+    }
+
+    .label-text {
+        font-size: 0.75rem;
+    }
+
+    .label-subtitle {
+        font-size: 0.45rem;
+    }
+
+    .turntable-arm {
+        width: 140px;
+        top: 8%;
+        right: 3%;
+    }
+
+    .audio-player {
+        max-width: 100%;
+        padding: 1.5rem;
+    }
+
+    .audio-player h3 {
+        font-size: 1.3rem;
+    }
+
+    .track-item {
+        padding: 0.8rem;
+        gap: 0.8rem;
+    }
+
+    .track-name {
+        font-size: 0.85rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .vinyl-wrapper {
+        width: 250px;
+        height: 250px;
+    }
+
+    .vinyl-record {
+        width: 230px;
+        height: 230px;
+    }
+
+    .vinyl-label {
+        width: 90px;
+        height: 90px;
+        padding: 10px;
+    }
+
+    .label-text {
+        font-size: 0.65rem;
+    }
+
+    .label-subtitle {
+        font-size: 0.4rem;
+    }
+
+    .turntable-arm {
+        width: 110px;
+        height: 6px;
+    }
+
+    .audio-player {
+        padding: 1rem;
+    }
+
+    .track-item {
+        flex-wrap: wrap;
+        padding: 0.7rem;
+    }
+
+    .track-number {
+        min-width: 25px;
+        font-size: 0.8rem;
+    }
+
+    .track-duration {
+        order: -1;
+        margin-left: auto;
+    }
+}

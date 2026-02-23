@@ -1,0 +1,352 @@
+/* Cast Accordion Styles - 電影節風格手風琴卡司展示 */
+
+.cast-accordion {
+    display: flex;
+    width: 100%;
+    height: 600px;
+    gap: 0;
+    overflow: hidden;
+    border-radius: 8px;
+    background: #000;
+}
+
+/* Accordion Card - 每個卡片 */
+.accordion-card {
+    position: relative;
+    flex: 1;
+    min-width: 120px;
+    height: 100%;
+    overflow: hidden;
+    cursor: pointer;
+    transition: flex 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    background: #000;
+}
+
+/* 窄條狀態 - 默認顯示 */
+.card-narrow {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+    transition: transform 0.6s ease;
+}
+
+.narrow-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    padding: 2rem 0;
+}
+
+/* 分類標籤 */
+.cast-label {
+    position: absolute;
+    top: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #d19233;
+    color: #fff;
+    font-family: 'Noto Sans TC', sans-serif;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    padding: 8px 16px;
+    text-align: center;
+    line-height: 1.4;
+    white-space: nowrap;
+    z-index: 10;
+}
+
+/* 垂直姓名 */
+.cast-name-vertical {
+    writing-mode: vertical-rl;
+    text-orientation: upright;
+    font-family: 'Noto Serif TC', serif;
+    font-size: 2rem;
+    color: #fff;
+    letter-spacing: 0.5em;
+    font-weight: 400;
+}
+
+/* 展開狀態 - 初始隱藏 */
+.card-expanded {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    opacity: 0;
+    z-index: 1;
+    transition: opacity 0.6s ease 0.2s;
+}
+
+.expanded-image {
+    flex: 0 0 60%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+.expanded-image .placeholder-visual {
+    width: 100%;
+    height: 100%;
+}
+
+.expanded-info {
+    flex: 1;
+    background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%);
+    padding: 1rem 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1.5rem;
+    position: relative;
+    opacity: 0;
+    transition: opacity 1.6s ease;
+}
+
+/* 展開狀態的分類標籤 */
+.cast-category {
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    background: #dfb33dce;
+    color: #fff;
+    font-family: 'Noto Sans TC', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    padding: 10px 18px;
+    text-align: center;
+    line-height: 1.5;
+}
+
+.cast-category span {
+    font-family: 'Cinzel', serif;
+    font-size: 0.55rem;
+    letter-spacing: 0.1em;
+    font-weight: 400;
+}
+
+.cast-name-large {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 3.5rem;
+    color: #fff;
+    margin: 0;
+    font-weight: 400;
+    line-height: 1.2;
+}
+
+.cast-role-large {
+    font-family: 'Noto Sans TC', sans-serif;
+    font-size: 1.2rem;
+    color: #D4AF37;
+    margin: 0;
+    letter-spacing: 0.1em;
+}
+
+.cast-description {
+    font-family: 'Noto Sans TC', sans-serif;
+    font-size: 1rem;
+    line-height: 1.8;
+    color: #B0B0B0;
+    margin: 1rem 0 0 0;
+    max-width: 400px;
+}
+
+/* Hover 和 Active 狀態 */
+.accordion-card.active {
+    flex: 4;
+    z-index: 10;
+    filter: brightness(1.2);
+}
+
+
+.accordion-card.active .card-narrow {
+    opacity: 0;
+    transform: scale(0.95);
+}
+
+.accordion-card:hover .card-narrow {
+    transform: scale(0.96);
+    filter: brightness(1.35);
+}
+
+.card-expanded,
+.accordion-card.active .expanded-info,
+.accordion-card.active .card-expanded {
+    opacity: 1;
+}
+
+/* 未展開的卡片變暗 */
+.accordion-card:not(:hover):not(.active) {
+    filter: brightness(0.7);
+}
+
+
+/* 添加分隔線效果 */
+.accordion-card::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 5%;
+    height: 90%;
+    width: 1px;
+    background: linear-gradient(to bottom,
+            transparent 0%,
+            rgba(212, 175, 55, 0.3) 20%,
+            rgba(212, 175, 55, 0.3) 80%,
+            transparent 100%);
+    z-index: 5;
+    opacity: 0.5;
+}
+
+.accordion-card:last-child::after {
+    display: none;
+}
+
+/* 響應式設計 */
+@media (max-width: 1024px) {
+    .cast-accordion {
+        height: 500px;
+    }
+
+    .cast-name-large {
+        font-size: 2.8rem;
+    }
+
+    .expanded-info {
+        padding: 3rem 2rem;
+    }
+
+    .cast-description {
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .cast-accordion {
+        flex-direction: column;
+        height: auto;
+        min-height: 600px;
+    }
+
+    .accordion-card {
+        flex: 1;
+        min-height: 100px;
+        height: 100px;
+        min-width: 100%;
+    }
+
+    .accordion-card:hover,
+    .accordion-card.active {
+        flex: 4;
+        height: 500px;
+    }
+
+    .card-narrow {
+        flex-direction: row;
+    }
+
+    .narrow-content {
+        flex-direction: row;
+        width: 100%;
+        padding: 0 2rem;
+        justify-content: space-between;
+    }
+
+    .cast-label {
+        position: relative;
+        top: 0;
+        left: 0;
+        transform: none;
+        font-size: 0.6rem;
+        padding: 6px 12px;
+    }
+
+    .cast-name-vertical {
+        writing-mode: horizontal-tb;
+        text-orientation: mixed;
+        font-size: 1.5rem;
+        letter-spacing: 0.2em;
+    }
+
+    .card-expanded {
+        flex-direction: column;
+    }
+
+    .expanded-image {
+        flex: 0 0 60%;
+        width: 100%;
+    }
+
+    .expanded-info {
+        flex: 1;
+        padding: 2rem 1.5rem;
+    }
+
+    .cast-category {
+        top: 20px;
+        right: 20px;
+        font-size: 0.6rem;
+        padding: 8px 14px;
+    }
+
+    .cast-name-large {
+        font-size: 2.2rem;
+    }
+
+    .cast-role-large {
+        font-size: 1rem;
+    }
+
+    .cast-description {
+        font-size: 0.85rem;
+    }
+
+    .accordion-card::after {
+        right: 5%;
+        left: 5%;
+        top: auto;
+        bottom: 0;
+        width: 90%;
+        height: 1px;
+        background: linear-gradient(to right,
+                transparent 0%,
+                rgba(212, 175, 55, 0.3) 20%,
+                rgba(212, 175, 55, 0.3) 80%,
+                transparent 100%);
+    }
+}
+
+@media (max-width: 480px) {
+    .accordion-card {
+        height: 80px;
+    }
+
+    .accordion-card:hover,
+    .accordion-card.active {
+        height: 450px;
+    }
+
+    .narrow-content {
+        padding: 0 1rem;
+    }
+
+    .cast-name-vertical {
+        font-size: 1.2rem;
+    }
+
+    .cast-name-large {
+        font-size: 1.8rem;
+    }
+
+    .expanded-info {
+        padding: 1.5rem 1rem;
+        gap: 1rem;
+    }
+}
