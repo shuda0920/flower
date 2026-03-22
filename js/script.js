@@ -424,34 +424,6 @@ heroTl
         ease: "power2.out"
     }, 0.05); // 0.5 代表時間軸走到一半時才插入這個動作
 
-// Stagger grids
-const grids = [".team-grid", ".merch-grid", ".schedule-grid"]; // Removed cast-carousel from general grid stagger for custom handling
-
-grids.forEach(grid => {
-    const children = document.querySelector(grid)?.children;
-    if (children) {
-        // Use batch for better performance and reliability with dynamic content
-        ScrollTrigger.batch(children, {
-            start: "top 95%",
-            onEnter: batch => gsap.to(batch, {
-                autoAlpha: 1,
-                y: 0,
-                stagger: 0.1,
-                overwrite: true,
-                duration: 0.6,
-                ease: "power2.out"
-            }),
-            onLeaveBack: batch => gsap.to(batch, {
-                autoAlpha: 0,
-                y: 30,
-                overwrite: true
-            })
-        });
-
-        // Set initial state
-        gsap.set(children, { autoAlpha: 0, y: 30 });
-    }
-});
 
 // Refresh ScrollTrigger after all assets (like images) are loaded to ensure correct positions
 window.addEventListener("load", () => {

@@ -82,19 +82,23 @@
     pointer-events: none;
 }
 
-.team-group-photo:hover .photo-overlay {
+.team-group-photo:hover .photo-overlay,
+.team-group-photo.reveal-overlay .photo-overlay {
     opacity: 1;
 }
 
 /* Overlay Content */
 .overlay-content {
     max-width: 300px;
+    padding-top: 4rem;
     color: #fff;
-    transform: translateX(-20px);
+    transform: translateY(-80px);
+    
     transition: transform 0.5s ease;
 }
 
-.team-group-photo:hover .overlay-content {
+.team-group-photo:hover .overlay-content,
+.team-group-photo.reveal-overlay .overlay-content {
     transform: translateX(0);
 }
 

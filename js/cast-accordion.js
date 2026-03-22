@@ -5,6 +5,45 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (accordionCards.length === 0) return;
 
+    // 動態創建展開圖片
+    function createExpandedImage(card) {
+        const cardExpanded = card.querySelector('.card-expanded');
+        const expandedInfo = cardExpanded.querySelector('.expanded-info');
+        const actorId = expandedInfo.getAttribute('data-actor');
+        
+        // 檢查是否已經存在
+        if (cardExpanded.querySelector('.expanded-image')) {
+            return;
+        }
+
+        // 獲取卡片資訊
+        const cardNo = card.getAttribute('data-cast');
+        const actorImageMap = {
+            '1': { src: 'images/actor/actor_1.jpg', alt: '洪藝瑄飾演玫瑰' },
+            '2': { src: 'images/actor/actor_2.jpg', alt: '林威成飾演浩' },
+            '3': { src: 'images/actor/actor_3.jpg', alt: '賴政杰飾演陶' },
+            '4': { src: 'images/actor/actor_4.jpg', alt: '尹筑帆飾演語心' }
+        };
+
+        const imageData = actorImageMap[cardNo];
+        
+        // 創建 expanded-image 元素
+        const expandedImage = document.createElement('div');
+        expandedImage.className = 'expanded-image';
+        expandedImage.innerHTML = `<img src="${imageData.src}" alt="${imageData.alt}" class="cast-portrait">`;
+        
+        // 插入到 expanded-info 前面
+        expandedInfo.parentNode.insertBefore(expandedImage, expandedInfo);
+    }
+
+    // 刪除展開圖片
+    function removeExpandedImage(card) {
+        const expandedImage = card.querySelector('.card-expanded .expanded-image');
+        if (expandedImage) {
+            expandedImage.remove();
+        }
+    }
+
     // 點擊卡片展開/收縮
     accordionCards.forEach(card => {
         card.addEventListener('click', () => {
@@ -13,11 +52,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
 
-            // 移除所有其他卡片的active狀態
-            accordionCards.forEach(c => c.classList.remove('active'));
+            // 移除所有其他卡片的active狀態和圖片
+            accordionCards.forEach(c => {
+                c.classList.remove('active');
+                removeExpandedImage(c);
+            });
 
-            // 添加active到當前卡片
+            // 添加active到當前卡片和圖片
             card.classList.add('active');
+            createExpandedImage(card);
         });
     });
 
@@ -41,8 +84,12 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         if (nextIndex !== undefined) {
-            accordionCards.forEach(c => c.classList.remove('active'));
+            accordionCards.forEach(c => {
+                c.classList.remove('active');
+                removeExpandedImage(c);
+            });
             accordionCards[nextIndex].classList.add('active');
+            createExpandedImage(accordionCards[nextIndex]);
 
             // 滾動到可視區域
             accordionCards[nextIndex].scrollIntoView({
@@ -97,10 +144,20 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
 
                 if (nextIndex !== undefined) {
-                    accordionCards.forEach(c => c.classList.remove('active'));
+                    accordionCards.forEach(c => {
+                        c.classList.remove('active');
+                        removeExpandedImage(c);
+                    });
                     accordionCards[nextIndex].classList.add('active');
+                    createExpandedImage(accordionCards[nextIndex]);
                 }
             }
         });
     });
+
+    // 初始化：為 active 的卡片添加圖片
+    const initialActive = document.querySelector('.accordion-card.active');
+    if (initialActive) {
+        createExpandedImage(initialActive);
+    }
 });

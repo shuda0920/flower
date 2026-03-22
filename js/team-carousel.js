@@ -112,7 +112,8 @@ function handleTeamSwipe() {
 
 // Auto-reset to first slide (team group photo) when section comes into view
 const teamSection = document.getElementById('team');
-let hasLeftTeamSection = false;
+let hasLeftTeamSection = true; // Initialize to true so first entry triggers
+let overlayTimeout = null;
 
 if (teamSection) {
     const observer = new IntersectionObserver((entries) => {
@@ -124,9 +125,29 @@ if (teamSection) {
                     showTeamSlide(0);
                     hasLeftTeamSection = false;
                 }
+                
+                // Auto trigger the group photo overlay pop-up
+                const teamGroupPhoto = document.querySelector('.team-group-photo');
+                if (teamGroupPhoto && currentTeamIndex === 0) {
+                    teamGroupPhoto.classList.add('reveal-overlay');
+                    
+                    // Clear any existing timeout to avoid glitching
+                    if (overlayTimeout) clearTimeout(overlayTimeout);
+                    
+                    // Hide overlay after 3 seconds to show the team photo
+                    overlayTimeout = setTimeout(() => {
+                        teamGroupPhoto.classList.remove('reveal-overlay');
+                    }, 3000);
+                }
             } else {
                 // Section is out of view
                 hasLeftTeamSection = true;
+                
+                // Cleanup overlay state if user scrolls away quickly
+                const teamGroupPhoto = document.querySelector('.team-group-photo');
+                if (teamGroupPhoto) {
+                    teamGroupPhoto.classList.remove('reveal-overlay');
+                }
             }
         });
     }, {

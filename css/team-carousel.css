@@ -71,26 +71,6 @@
     overflow: hidden;
 }
 
-.team-photo-placeholder::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 150px;
-    height: 150px;
-    border: 3px solid rgba(212, 175, 55, 0.2);
-    border-radius: 50%;
-}
-
-.team-photo-placeholder .ph-circle {
-    width: 100px;
-    height: 100px;
-    border: 3px solid #8C701C;
-    border-radius: 50%;
-    position: relative;
-    animation: pulse 2s ease-in-out infinite;
-}
 
 /* Team Info */
 .team-info {

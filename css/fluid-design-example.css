@@ -55,7 +55,7 @@ h2 {
 .card,
 .product {
     width: 100%;
-    max-width: 400px;
+    max-width: 300px;
 }
 
 /* 現在只需要很少的媒體查詢！ */
