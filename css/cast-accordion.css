@@ -259,75 +259,74 @@
 
     .cast-description {
         font-size: 0.9rem;
+        margin-top: 0;
     }
+}
+
+.cast-mobile-nav {
+    display: none;
 }
 
 @media (max-width: 768px) {
     .cast-accordion {
-        flex-direction: column;
-        height: auto;
-        min-height: 600px;
+        position: relative;
+        display: block; /* Change from flex to block */
+        height: 650px;
+        min-height: auto;
     }
 
     .accordion-card {
-        flex: 1;
-        min-height: 100px;
-        height: 100px;
-        min-width: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100% !important;
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transition: opacity 0.5s ease;
     }
 
-    .accordion-card:hover,
     .accordion-card.active {
-        flex: 4;
-        height: 500px;
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+        z-index: 10;
+        filter: brightness(1);
     }
 
     .card-narrow {
-        flex-direction: row;
-    }
-
-    .narrow-content {
-        flex-direction: row;
-        width: 100%;
-        padding: 0 2rem;
-        justify-content: space-between;
-    }
-
-    .cast-label {
-        position: relative;
-        top: 0;
-        left: 0;
-        transform: none;
-        font-size: 0.6rem;
-        padding: 6px 12px;
-    }
-
-    .cast-name-vertical {
-        writing-mode: horizontal-tb;
-        text-orientation: mixed;
-        font-size: 1.5rem;
-        letter-spacing: 0.2em;
+        display: none !important; /* Hide narrow vertical label */
     }
 
     .card-expanded {
         flex-direction: column;
+        opacity: 1 !important;
     }
 
     .expanded-image {
-        flex: 0 0 60%;
+        flex: 0 0 50%;
         width: 100%;
+        height: 50%;
+    }
+    .expanded-image img {
+        object-position: center 30%;
     }
 
     .expanded-info {
-        flex: 1;
-        padding: 2rem 1.5rem;
+        flex: 0 0 50%;
+        width: 100%;
+        height: 50%;
+        padding: 1.5rem !important;
+        padding-bottom: 70px !important; /* Make room for navigation */
+        overflow-y: auto;
     }
 
     .cast-category {
-        top: 20px;
-        right: 20px;
+        top: 15px;
+        right: 15px;
         font-size: 0.6rem;
-        padding: 8px 14px;
+        padding: 6px 12px;
     }
 
     .cast-name-large {
@@ -343,44 +342,70 @@
     }
 
     .accordion-card::after {
-        right: 5%;
-        left: 5%;
-        top: auto;
-        bottom: 0;
-        width: 90%;
-        height: 1px;
-        background: linear-gradient(to right,
-                transparent 0%,
-                rgba(212, 175, 55, 0.3) 20%,
-                rgba(212, 175, 55, 0.3) 80%,
-                transparent 100%);
+        display: none;
+    }
+
+    /* Mobile Navigation */
+    .cast-mobile-nav {
+        position: absolute;
+        top: 695px;
+        left: 0;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 1.5rem;
+        z-index: 20; /* Above cards */
+        padding: 0 1rem;
+    }
+
+    .cast-nav-btn {
+        background: rgba(0, 0, 0, 0.5);
+        color: #D4AF37;
+        border: 1px solid rgba(212, 175, 55, 0.5);
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        font-size: 1.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        backdrop-filter: blur(5px);
+        transition: all 0.3s ease;
+    }
+
+    .cast-indicators {
+        display: flex;
+        gap: 8px;
+    }
+
+    .cast-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.3);
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .cast-dot.active {
+        background: #D4AF37;
+        transform: scale(1.2);
     }
 }
 
 @media (max-width: 480px) {
-    .accordion-card {
-        height: 80px;
+    .cast-accordion {
+        height: 550px;
     }
-
-    .accordion-card:hover,
-    .accordion-card.active {
-        height: 450px;
+    .expanded-image {
+        flex: 0 0 45%;
+        height: 45%;
     }
-
-    .narrow-content {
-        padding: 0 1rem;
-    }
-
-    .cast-name-vertical {
-        font-size: 1.2rem;
-    }
-
-    .cast-name-large {
-        font-size: 1.8rem;
-    }
-
     .expanded-info {
-        padding: 1.5rem 1rem;
-        gap: 1rem;
+        flex: 0 0 55%;
+        height: 55%;
+        padding-bottom: 70px !important;
     }
 }

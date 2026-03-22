@@ -156,3 +156,67 @@ if (teamSection) {
 
     observer.observe(teamSection);
 }
+
+// --- Mobile specific: Click photo to toggle bio pop-up ---
+function initMobileBioPopups() {
+    // Create and append backdrop if it doesn't exist
+    let bioBackdrop = document.querySelector('.bio-backdrop');
+    if (!bioBackdrop) {
+        bioBackdrop = document.createElement('div');
+        bioBackdrop.className = 'bio-backdrop';
+        document.body.appendChild(bioBackdrop);
+    }
+
+    const memberPhotos = document.querySelectorAll('.team-slide:not(.team-group-slide) .team-photo');
+    
+    function closeBioPopup() {
+        document.querySelectorAll('.team-slide.show-bio').forEach(slide => {
+            slide.classList.remove('show-bio');
+        });
+        bioBackdrop.classList.remove('show');
+        document.body.style.overflow = ''; // Restore scrolling
+    }
+
+    memberPhotos.forEach(photo => {
+        photo.addEventListener('click', (e) => {
+            if (window.innerWidth <= 768) {
+                e.stopPropagation();
+                
+                // Close any currently open bio
+                closeBioPopup();
+                
+                // Open this one
+                const slide = photo.closest('.team-slide');
+                slide.classList.add('show-bio');
+                bioBackdrop.classList.add('show');
+                document.body.style.overflow = 'hidden'; // Prevent background scrolling
+            }
+        });
+    });
+
+    // Close when clicking the backdrop
+    bioBackdrop.addEventListener('click', closeBioPopup);
+
+    // Prevent scrolling when touching the backdrop
+    bioBackdrop.addEventListener('touchmove', (e) => {
+        e.preventDefault();
+    }, { passive: false });
+
+    // Close when clicking specifically on the bio element
+    const memberBios = document.querySelectorAll('.team-slide:not(.team-group-slide) .member-bio');
+    memberBios.forEach(bio => {
+        bio.addEventListener('click', (e) => {
+            const rect = bio.getBoundingClientRect();
+            const clickX = e.clientX - rect.left;
+            const clickY = e.clientY - rect.top;
+            
+            // Approximate top right corner click for 'X'
+            if (clickX > rect.width - 40 && clickY < 40) {
+                closeBioPopup();
+            }
+        });
+    });
+}
+
+// Run initialization since script is at end of body
+initMobileBioPopups();

@@ -238,8 +238,17 @@
 }
 
 @media (max-width: 640px) {
+    .team-carousel-container {
+    width: 100%;
+    max-width: 1200px;
+    height: 60%;
+    position: relative;
+    margin: 0 auto;
+    padding: 0;
+}
+
     .team-carousel {
-        min-height: 600px;
+        min-height: 400px;
     }
 
     .team-slide {
