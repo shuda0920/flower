@@ -18,10 +18,12 @@ function toggleMobileMenu() {
     }
 }
 
+
 // Initialize after DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
     const hamburgerElement = document.querySelector('.hamburger');
     const navLinksElement = document.querySelector('.nav-links');
+    const nav = document.querySelector('nav');
     const allNavLinks = document.querySelectorAll('.nav-links a');
 
     // Hamburger click event
@@ -29,6 +31,8 @@ document.addEventListener('DOMContentLoaded', () => {
         hamburgerElement.addEventListener('click', (e) => {
             e.stopPropagation();
             toggleMobileMenu();
+            nav.classList.add('glassify');
+            nav.classList.add('scrolled');
         });
     }
 

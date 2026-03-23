@@ -155,3 +155,141 @@
 .hidden {
     display: none !important;
 }
+
+/* =====================================================
+   手機模式 – quiz 區塊響應式 (450px ~ 650px)
+   ===================================================== */
+
+/* 通用手機：≤ 650px */
+@media (max-width: 650px) {
+    .quiz-glass-panel {
+        padding: 1.8rem 1.2rem;
+        border-radius: 12px;
+        margin: 0 0.5rem;
+        /* 避免整體面板被撐破螢幕 */
+        box-sizing: border-box;
+        max-width: 100%;
+    }
+
+    /* 首頁標題 */
+    .quiz-title {
+        font-size: clamp(1.1rem, 4.5vw, 1.5rem);
+        margin-bottom: 0.4rem;
+        line-height: 1.5;
+    }
+
+    .quiz-subtitle {
+        font-size: 0.85rem;
+        margin-bottom: 1.2rem;
+    }
+
+    .quiz-description {
+        font-size: 0.9rem;
+        line-height: 1.7;
+        margin-bottom: 1.5rem;
+    }
+
+    /* 開始按鈕 */
+    #start-quiz-btn,
+    #restart-quiz-btn {
+        padding: 10px 22px;
+        font-size: 0.9rem;
+    }
+
+    /* 進度條區 */
+    .quiz-progress {
+        margin-bottom: 1.2rem;
+        font-size: 0.85rem;
+        gap: 0.4rem;
+    }
+
+    .progress-bar-container {
+        max-width: 100%;
+        height: 3px;
+    }
+
+    /* 問題文字 */
+    #quiz-question-text {
+        font-size: clamp(1rem, 3.8vw, 1.2rem);
+        margin-bottom: 1.2rem;
+        line-height: 1.55;
+    }
+
+    /* 選項 */
+    .quiz-options-list {
+        gap: 0.7rem;
+        max-width: 100%;
+    }
+
+    .quiz-option {
+        padding: 0.75rem 1rem;
+        font-size: clamp(0.85rem, 3.2vw, 1rem);
+        border-radius: 8px;
+    }
+
+    /* 結果區 */
+    .quiz-result-header {
+        font-size: 1rem;
+        margin-bottom: 1rem;
+        letter-spacing: 0.15em;
+    }
+
+    #quiz-result-icon {
+        font-size: 3rem;
+        margin-bottom: 0.8rem;
+    }
+
+    #quiz-result-name {
+        font-size: clamp(1.6rem, 6vw, 2rem);
+        margin-bottom: 1rem;
+    }
+
+    .quiz-result-text {
+        font-size: clamp(0.85rem, 3vw, 1rem);
+        line-height: 1.75;
+        margin-bottom: 1.5rem;
+        padding: 1rem;
+        max-width: 100%;
+    }
+}
+
+/* 極小手機：≤ 450px（再壓縮一層） */
+@media (max-width: 450px) {
+    .quiz-glass-panel {
+        padding: 1.4rem 1rem;
+        margin: 0 0.25rem;
+        border-radius: 10px;
+    }
+
+    .quiz-title {
+        font-size: clamp(1rem, 5vw, 1.3rem);
+    }
+
+    .quiz-description {
+        font-size: 0.82rem;
+        margin-bottom: 1.2rem;
+    }
+
+    #quiz-question-text {
+        font-size: clamp(0.95rem, 4.2vw, 1.1rem);
+        margin-bottom: 1rem;
+    }
+
+    .quiz-option {
+        padding: 0.65rem 0.85rem;
+        font-size: 0.85rem;
+    }
+
+    #quiz-result-icon {
+        font-size: 2.5rem;
+    }
+
+    #quiz-result-name {
+        font-size: clamp(1.4rem, 7vw, 1.8rem);
+    }
+
+    .quiz-result-text {
+        font-size: 0.82rem;
+        padding: 0.85rem;
+    }
+}

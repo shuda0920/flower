@@ -119,7 +119,8 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: center 60%; /* 將圖片位置向上移動 20% */
+    object-position: center 60%;
+    /* 將圖片位置向上移動 20% */
 }
 
 .expanded-info {
@@ -129,7 +130,7 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    gap: 1.5rem;
+    gap: 1rem;
     position: relative;
     opacity: 0;
     transition: opacity 1.6s ease;
@@ -270,7 +271,8 @@
 @media (max-width: 768px) {
     .cast-accordion {
         position: relative;
-        display: block; /* Change from flex to block */
+        display: block;
+        /* Change from flex to block */
         height: 650px;
         min-height: auto;
     }
@@ -296,7 +298,8 @@
     }
 
     .card-narrow {
-        display: none !important; /* Hide narrow vertical label */
+        display: none !important;
+        /* Hide narrow vertical label */
     }
 
     .card-expanded {
@@ -309,6 +312,7 @@
         width: 100%;
         height: 50%;
     }
+
     .expanded-image img {
         object-position: center 30%;
     }
@@ -318,7 +322,8 @@
         width: 100%;
         height: 50%;
         padding: 1.5rem !important;
-        padding-bottom: 70px !important; /* Make room for navigation */
+        padding-bottom: 70px !important;
+        /* Make room for navigation */
         overflow-y: auto;
     }
 
@@ -355,7 +360,8 @@
         justify-content: center;
         align-items: center;
         gap: 1.5rem;
-        z-index: 20; /* Above cards */
+        z-index: 20;
+        /* Above cards */
         padding: 0 1rem;
     }
 
@@ -399,10 +405,12 @@
     .cast-accordion {
         height: 550px;
     }
+
     .expanded-image {
         flex: 0 0 45%;
         height: 45%;
     }
+
     .expanded-info {
         flex: 0 0 55%;
         height: 55%;
