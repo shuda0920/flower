@@ -75,7 +75,7 @@ body {
         transform: translateY(-10px) rotate(-45deg);
     }
 
-    /* 移动端导航菜单 */
+    /* 手機導航選單 – iPhone 修正版 */
     .nav-links {
         display: none;
         position: fixed;
@@ -83,8 +83,13 @@ body {
         left: 0;
         width: 100%;
         height: 100vh;
-        background: rgba(5, 5, 5, 0.98);
-        backdrop-filter: blur(20px);
+        height: 100dvh;              /* dynamic viewport: 排除 iOS 地址列 */
+        /* 實色不透明背景！避免 glassi-fy / p5.js 渲影透出 */
+        background: #030303;
+        /* 強制建立独立 GPU compositing layer */
+        will-change: transform;
+        transform: translateZ(0);
+        -webkit-transform: translateZ(0);
         flex-direction: column;
         justify-content: center;
         align-items: center;
@@ -92,6 +97,7 @@ body {
         z-index: 9999;
         padding: 2rem;
         box-sizing: border-box;
+        isolation: isolate;
     }
 
     .nav-links.active {

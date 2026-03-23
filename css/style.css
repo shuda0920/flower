@@ -1754,29 +1754,22 @@ footer {
         font-size: 0.95rem;
     }
 
-    /* Merch */
+    /* Merch – 单欄垂直不溢出螢幕 */
     .merch-grid {
-        flex-direction: row;
+        flex-direction: column;
         flex-wrap: nowrap;
-        overflow-x: auto;
-        scroll-snap-type: x mandatory;
-        justify-content: flex-start;
-        align-items: stretch;
+        overflow-x: hidden;
+        align-items: center;
         gap: 1.5rem;
-        padding-bottom: 1.5rem; /* for scrollbar spacing */
-        -ms-overflow-style: none;  /* IE and Edge */
-        scrollbar-width: none;  /* Firefox */
-    }
-
-    .merch-grid::-webkit-scrollbar {
-        display: none;
+        padding-bottom: 0;
     }
 
     .product {
-        min-width: 80%;
-        max-width: none;
-        flex: 0 0 auto;
-        scroll-snap-align: center;
+        width: 100%;
+        min-width: 0;
+        max-width: 100%;
+        flex: none;
+        box-sizing: border-box;
     }
 
     /* Footer */
