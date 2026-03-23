@@ -1,88 +1,82 @@
 // Mobile Navigation (Hamburger Menu)
+// ─────────────────────────────────
+// 核心策略：開選單時隱藏 glassi-fy（WebGL 覆蓋層），
+// 關閉時恢復，確保黑色背景永遠可見。
 
-// Toggle mobile menu
-function toggleMobileMenu() {
-    const hamburgerElement = document.querySelector('.hamburger');
-    const navLinksElement = document.querySelector('.nav-links');
+const GLASSI_SELECTOR = 'glassi-fy';
 
-    if (hamburgerElement && navLinksElement) {
-        hamburgerElement.classList.toggle('active');
-        navLinksElement.classList.toggle('active');
-
-        // Prevent body scroll when menu is open
-        if (navLinksElement.classList.contains('active')) {
-            document.body.style.overflow = 'hidden';
-        } else {
-            document.body.style.overflow = '';
-        }
-    }
+function setGlassify(visible) {
+    const g = document.querySelector(GLASSI_SELECTOR);
+    if (!g) return;
+    g.style.visibility = visible ? '' : 'hidden';
+    g.style.opacity    = visible ? '' : '0';
+    g.style.pointerEvents = visible ? '' : 'none';
 }
 
+function openMenu(hamburgerEl, navLinksEl) {
+    hamburgerEl.classList.add('active');
+    navLinksEl.classList.add('active');
+    document.body.style.overflow = 'hidden';
+    setGlassify(false);          // 暫停 glassi-fy，露出真正的黑色底色
+}
 
-// Initialize after DOM is loaded
+function closeMenu(hamburgerEl, navLinksEl) {
+    hamburgerEl.classList.remove('active');
+    navLinksEl.classList.remove('active');
+    document.body.style.overflow = '';
+    setGlassify(true);           // 恢復 glassi-fy 效果
+}
+
+// ─── Initialize ────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
-    const hamburgerElement = document.querySelector('.hamburger');
-    const navLinksElement = document.querySelector('.nav-links');
-    const nav = document.querySelector('nav');
-    const allNavLinks = document.querySelectorAll('.nav-links a');
+    const hamburgerEl  = document.querySelector('.hamburger');
+    const navLinksEl   = document.querySelector('.nav-links');
+    const nav          = document.querySelector('nav');
+    const allNavLinks  = document.querySelectorAll('.nav-links a');
 
-    // Hamburger click event
-    if (hamburgerElement) {
-        hamburgerElement.addEventListener('click', (e) => {
-            e.stopPropagation();
-            toggleMobileMenu();
-            nav.classList.add('glassify');
-            nav.classList.add('scrolled');
-        });
-    }
+    if (!hamburgerEl || !navLinksEl) return;
 
-    // Nav items click - close menu with delay
-    if (allNavLinks.length > 0) {
-        allNavLinks.forEach(link => {
-            link.addEventListener('click', () => {
-                // Delay closing to allow smooth scroll to start
-                setTimeout(() => {
-                    if (navLinksElement && navLinksElement.classList.contains('active')) {
-                        navLinksElement.classList.remove('active');
-                        if (hamburgerElement) {
-                            hamburgerElement.classList.remove('active');
-                        }
-                        document.body.style.overflow = '';
-                    }
-                }, 300);
-            });
-        });
-    }
-
-    // Click on overlay background to close
-    if (navLinksElement) {
-        navLinksElement.addEventListener('click', (e) => {
-            // Only close if clicking the background, not the menu items
-            if (e.target === navLinksElement) {
-                navLinksElement.classList.remove('active');
-                if (hamburgerElement) {
-                    hamburgerElement.classList.remove('active');
-                }
-                document.body.style.overflow = '';
+    // Hamburger click
+    hamburgerEl.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (navLinksEl.classList.contains('active')) {
+            closeMenu(hamburgerEl, navLinksEl);
+        } else {
+            openMenu(hamburgerEl, navLinksEl);
+            if (nav) {
+                nav.classList.add('scrolled');
             }
+        }
+    });
+
+    // Nav item click → close after short delay
+    allNavLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            setTimeout(() => {
+                if (navLinksEl.classList.contains('active')) {
+                    closeMenu(hamburgerEl, navLinksEl);
+                }
+            }, 300);
         });
-    }
+    });
+
+    // Click outside (on overlay) → close
+    navLinksEl.addEventListener('click', (e) => {
+        if (e.target === navLinksEl) {
+            closeMenu(hamburgerEl, navLinksEl);
+        }
+    });
 });
 
-// Handle window resize - close menu when resizing to desktop
+// ─── Resize → close on desktop ────────────────────────
 let resizeTimer;
 window.addEventListener('resize', () => {
     clearTimeout(resizeTimer);
     resizeTimer = setTimeout(() => {
-        const navLinksElement = document.querySelector('.nav-links');
-        const hamburgerElement = document.querySelector('.hamburger');
-
-        if (window.innerWidth > 768 && navLinksElement) {
-            navLinksElement.classList.remove('active');
-            if (hamburgerElement) {
-                hamburgerElement.classList.remove('active');
-            }
-            document.body.style.overflow = '';
+        const hamburgerEl = document.querySelector('.hamburger');
+        const navLinksEl  = document.querySelector('.nav-links');
+        if (window.innerWidth > 768 && navLinksEl && navLinksEl.classList.contains('active')) {
+            closeMenu(hamburgerEl, navLinksEl);
         }
     }, 250);
 });

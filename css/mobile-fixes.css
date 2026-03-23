@@ -83,18 +83,16 @@ body {
         left: 0;
         width: 100%;
         height: 100vh;
-        height: 100dvh;              /* dynamic viewport: 排除 iOS 地址列 */
-        /* 實色不透明背景！避免 glassi-fy / p5.js 渲影透出 */
-        background: #030303;
-        /* 強制建立独立 GPU compositing layer */
+        height: 100dvh;
+        background: #030303;         /* 實色：無論 glassi-fy 在不在都能遞羋 */
         will-change: transform;
-        transform: translateZ(0);
+        transform: translateZ(0);    /* 強制独立 GPU 層 */
         -webkit-transform: translateZ(0);
         flex-direction: column;
         justify-content: center;
         align-items: center;
         gap: 2rem;
-        z-index: 9999;
+        z-index: 99999;              /* 大於 glassi-fy 的任何 z-index */
         padding: 2rem;
         box-sizing: border-box;
         isolation: isolate;
@@ -207,6 +205,17 @@ body {
     .game-section {
         overflow-y: auto;
         align-items: stretch;
+    }
+
+    /* 周邊商品區：容許 merch-grid 內部水平滚動，不裁切 */
+    #merch.container {
+        overflow-x: clip;        /* clip 裁切自身 overflow，不影響子元素的 scroll 容器 */
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
+
+    #merch .section-title {
+        padding: 0 5%;
     }
 
     /* hero header 也占滿螢幕 */
