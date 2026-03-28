@@ -25,6 +25,12 @@ body {
         box-sizing: border-box;
     }
 
+    /* 修正：首頁頂端 nav 使用 mix-blend-mode:difference 會讓選單黑底被混色吃掉。
+       選單打開時暫時關閉混色，確保背景真的變黑。 */
+    body.menu-open nav {
+        mix-blend-mode: normal !important;
+    }
+
     nav.scrolled {
         padding: 0.8rem 1rem !important;
         margin: 0.5rem;

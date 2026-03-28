@@ -1377,19 +1377,19 @@ header#hero {
 }
 
 .btn-sm {
-    background: transparent;
+    background: #ffda46;
     border: 1px solid #444;
-    color: #ccc;
+    color: #000;
     padding: 8px 16px;
     font-size: 0.8rem;
     cursor: pointer;
-    transition: 0.3s;
     margin-top: 10px;
 }
 
 .btn-sm:hover {
     border-color: var(--gold-500);
     color: var(--gold-500);
+    background-color: #000;
 }
 
 /* --- Footer --- */

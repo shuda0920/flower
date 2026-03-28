@@ -16,6 +16,9 @@ function setGlassify(visible) {
 function openMenu(hamburgerEl, navLinksEl) {
     hamburgerEl.classList.add('active');
     navLinksEl.classList.add('active');
+    document.body.classList.add('menu-open');
+    const nav = document.querySelector('nav');
+    if (nav) nav.classList.add('menu-open');
     document.body.style.overflow = 'hidden';
     setGlassify(false);          // 暫停 glassi-fy，露出真正的黑色底色
 }
@@ -23,6 +26,9 @@ function openMenu(hamburgerEl, navLinksEl) {
 function closeMenu(hamburgerEl, navLinksEl) {
     hamburgerEl.classList.remove('active');
     navLinksEl.classList.remove('active');
+    document.body.classList.remove('menu-open');
+    const nav = document.querySelector('nav');
+    if (nav) nav.classList.remove('menu-open');
     document.body.style.overflow = '';
     setGlassify(true);           // 恢復 glassi-fy 效果
 }

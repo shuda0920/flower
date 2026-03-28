@@ -133,7 +133,7 @@
     gap: 1rem;
     position: relative;
     opacity: 0;
-    transition: opacity 1.6s ease;
+    transition: opacity 0.2s ease;
 }
 
 /* 展開狀態的分類標籤 */
@@ -353,7 +353,7 @@
     /* Mobile Navigation */
     .cast-mobile-nav {
         position: absolute;
-        top: 695px;
+        top: 85%;
         left: 0;
         width: 100%;
         display: flex;
