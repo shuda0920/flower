@@ -124,7 +124,13 @@ document.addEventListener('DOMContentLoaded', () => {
             const btn = document.createElement('button');
             btn.className = 'quiz-option';
             btn.textContent = option.text;
-            btn.addEventListener('click', () => selectOption(option.type));
+            btn.addEventListener('click', (e) => {
+                selectOption(option.type);
+                // 行動裝置上可避免點擊後保留焦點狀態
+                if (e.currentTarget && typeof e.currentTarget.blur === 'function') {
+                    e.currentTarget.blur();
+                }
+            });
             optionsContainer.appendChild(btn);
         });
     }

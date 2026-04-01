@@ -97,12 +97,26 @@
     cursor: pointer;
     transition: all 0.3s ease;
     text-align: left;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
 }
 
-.quiz-option:hover {
-    background: rgba(212, 175, 55, 0.15);
-    border-color: var(--gold-500);
-    transform: translateY(-2px);
+/* 只在有 hover 能力的裝置（滑鼠/觸控板）套用 hover 變色，避免手機點擊後「黏住顏色」 */
+@media (hover: hover) and (pointer: fine) {
+    .quiz-option:hover {
+        background: rgba(212, 175, 55, 0.15);
+        border-color: var(--gold-500);
+        transform: translateY(-2px);
+    }
+}
+
+.quiz-option:focus {
+    outline: none;
+}
+
+.quiz-option:focus-visible {
+    outline: 2px solid rgba(212, 175, 55, 0.65);
+    outline-offset: 2px;
 }
 
 .quiz-option:active {
@@ -292,4 +306,4 @@
         font-size: 0.82rem;
         padding: 0.85rem;
     }
-}
+}
